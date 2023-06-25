@@ -33,8 +33,9 @@
     position: absolute;
     top: 0;
     left: 0;
-    transform: translateX(-50%);
-    transition: transform 0.3s ease-in-out;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 9999;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -45,8 +46,6 @@
     font-weight: bold;
     font-size: 14px;
     border-radius: 50%;
-    pointer-events: none;
-    z-index: 999;
 }
 
 

@@ -3,6 +3,8 @@ import './index.css';
 
 const App = () => {
   const sliderRef = useRef(null);
+  const dragContainerRef = useRef(null);
+  const [isHovered, setIsHovered] = useState(false);
   const [isDown, setIsDown] = useState(false);
   const [startX, setStartX] = useState(null);
   const [scrollLeft, setScrollLeft] = useState(null);
@@ -15,8 +17,7 @@ const App = () => {
   };
 
   const handleMouseLeave = () => {
-    setIsDown(false);
-    sliderRef.current.classList.remove('active');
+    setIsHovered(false);
   };
 
   const handleMouseUp = () => {
@@ -25,31 +26,46 @@ const App = () => {
   };
 
   const handleMouseMove = (e) => {
-    if (!isDown) return;
-    e.preventDefault();
-    const x = e.pageX - sliderRef.current.offsetLeft;
-    const walk = (x - startX) * 3;
-    sliderRef.current.scrollLeft = scrollLeft - walk;
-    // Update the position of the drag container
-    const dragContainer = document.getElementById('drag-container');
-    if (dragContainer) {
-      dragContainer.style.transform = `translateX(${e.pageX}px)`;
+    if (!isDown) {
+      sliderRef.current.style.cursor = 'none';
+      if (isHovered) {
+        sliderRef.current.style.cursor = 'none';
+        sliderRef.current.style.cursor = `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%236c6c6c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>'), auto`;
+        dragContainerRef.current.style.display = 'block';
+        dragContainerRef.current.style.top = `${e.clientY}px`;
+        dragContainerRef.current.style.left = `${e.clientX}px`;
+      }
+    } else {
+      e.preventDefault();
+      const x = e.pageX - sliderRef.current.offsetLeft;
+      const walk = (x - startX) * 3;
+      sliderRef.current.scrollLeft = scrollLeft - walk;
     }
   };
-
-
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+  };
 
   return (
     <div className='container'>
-      <div className="items" ref={sliderRef}
-           onMouseDown={handleMouseDown}
-           onMouseLeave={handleMouseLeave}
-           onMouseUp={handleMouseUp}
-           onMouseMove={handleMouseMove}
+      <div
+        className="items"
+        ref={sliderRef}
+        onMouseDown={handleMouseDown}
+        onMouseMove={handleMouseMove}
+        onMouseUp={handleMouseUp}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
       >
-        <div className="drag-container" id="drag-container">
-          Drag
-        </div>
+        {isHovered && (
+          <div
+            className="drag-container"
+            ref={dragContainerRef}
+            style={{ display: isDown ? 'none' : 'block' }}
+          >
+            Drag
+          </div>
+        )}
         <div className="item item-1">1</div>
         <div className="item item-2">2</div>
         <div className="item item-3">3</div>
