@@ -24,13 +24,5 @@ To use the drag slider component in your project, follow these steps:
 
 5. Open your browser and visit `http://localhost:3000` to see the drag slider in action.
 
-## Usage
-
-To use the drag slider component in your own project, follow these steps:
-
-1. Import the `DragSlider` component:
-
-```jsx
-import DragSlider from './components/DragSlider';
 
 
