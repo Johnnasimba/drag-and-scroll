@@ -10,7 +10,6 @@
     position: relative;
     display: flex;
     overflow-x: hidden;
-    /*overflow-y: hidden;*/
     scroll-snap-type: x mandatory;
     scrollbar-width: thin;
     scrollbar-color: #888888 #dddddd;
