@@ -9,7 +9,7 @@
 .items {
     position: relative;
     display: flex;
-    overflow-x: scroll;
+    overflow-x: hidden;
     /*overflow-y: hidden;*/
     scroll-snap-type: x mandatory;
     scrollbar-width: thin;
@@ -32,7 +32,7 @@
 }
 
 .drag-container {
-    position: fixed; /* Change to fixed position */
+    position: fixed;
     top: 0;
     left: 0;
     transform: translate(-50%, -50%);

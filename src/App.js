@@ -11,6 +11,7 @@ const App = () => {
 
   const handleMouseDown = (e) => {
     setIsDown(true);
+    setIsHovered(true);
     sliderRef.current.classList.add('active');
     setStartX(e.pageX - sliderRef.current.offsetLeft);
     setScrollLeft(sliderRef.current.scrollLeft);
@@ -27,12 +28,8 @@ const App = () => {
 
   const handleMouseMove = (e) => {
     if (!isDown) {
-      sliderRef.current.style.cursor = 'none';
-      if (isHovered) {
-        sliderRef.current.style.cursor = 'none';
-        dragContainerRef.current.style.display = 'block';
-        dragContainerRef.current.style.transform = `translate(-50%, -50%) translate(${e.clientX}px, ${e.clientY}px)`;
-      }
+      dragContainerRef.current.style.top = `${e.clientY}px`;
+      dragContainerRef.current.style.left = `${e.clientX}px`;
     } else {
       e.preventDefault();
       const x = e.pageX - sliderRef.current.offsetLeft;
@@ -46,7 +43,7 @@ const App = () => {
   };
 
   return (
-    <div className='container'>
+    <div className="container">
       <div
         className="items"
         ref={sliderRef}
@@ -56,15 +53,9 @@ const App = () => {
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
-        {isHovered && (
-          <div
-            className="drag-container"
-            ref={dragContainerRef}
-            style={{ display: isDown ? 'none' : 'block' }}
-          >
-            Drag
-          </div>
-        )}
+        <div className="drag-container" ref={dragContainerRef} style={{ display: isHovered ? 'block' : 'none' }}>
+          Drag
+        </div>
         <div className="item item-1">1</div>
         <div className="item item-2">2</div>
         <div className="item item-3">3</div>
