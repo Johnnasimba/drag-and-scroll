@@ -10,9 +10,11 @@
     position: relative;
     display: flex;
     overflow-x: scroll;
+    /*overflow-y: hidden;*/
     scroll-snap-type: x mandatory;
     scrollbar-width: thin;
     scrollbar-color: #888888 #dddddd;
+    cursor: none;
 }
 
 .item {
@@ -30,7 +32,7 @@
 }
 
 .drag-container {
-    position: absolute;
+    position: fixed; /* Change to fixed position */
     top: 0;
     left: 0;
     transform: translate(-50%, -50%);

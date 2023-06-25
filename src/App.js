@@ -30,10 +30,8 @@ const App = () => {
       sliderRef.current.style.cursor = 'none';
       if (isHovered) {
         sliderRef.current.style.cursor = 'none';
-        sliderRef.current.style.cursor = `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%236c6c6c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>'), auto`;
         dragContainerRef.current.style.display = 'block';
-        dragContainerRef.current.style.top = `${e.clientY}px`;
-        dragContainerRef.current.style.left = `${e.clientX}px`;
+        dragContainerRef.current.style.transform = `translate(-50%, -50%) translate(${e.clientX}px, ${e.clientY}px)`;
       }
     } else {
       e.preventDefault();
@@ -42,6 +40,7 @@ const App = () => {
       sliderRef.current.scrollLeft = scrollLeft - walk;
     }
   };
+
   const handleMouseEnter = () => {
     setIsHovered(true);
   };
